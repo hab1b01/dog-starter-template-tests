@@ -32,4 +32,22 @@ expect(fetchMock).toHaveBeenCalledOnce();
 
 });
 
+
+// test case 2 
+test("should throw error when API call fails", async () => {
+
+    const fetchMock = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 500
+    });
+
+    vi.stubGlobal("fetch", fetchMock as unknown as typeof fetch);
+
+    await expect(getRandomDogImage()).rejects.toThrowError();
+
+    expect(fetchMock).toHaveBeenCalledOnce();
+
+});
+
+
 });
